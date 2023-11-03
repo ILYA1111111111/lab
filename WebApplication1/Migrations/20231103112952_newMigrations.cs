@@ -28,27 +28,6 @@ namespace WebApplication1.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Consultants",
-                columns: table => new
-                {
-                    ConsultantID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Number = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ConsultantId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Consultants", x => x.ConsultantID);
-                    table.ForeignKey(
-                        name: "FK_Consultants_Consultants_ConsultantId",
-                        column: x => x.ConsultantId,
-                        principalTable: "Consultants",
-                        principalColumn: "ConsultantID");
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Customers",
                 columns: table => new
                 {
@@ -67,6 +46,27 @@ namespace WebApplication1.Migrations
                         column: x => x.CustomerId,
                         principalTable: "Customers",
                         principalColumn: "CustomerID");
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Sellers",
+                columns: table => new
+                {
+                    SellerID = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
+                    Name = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(60)", maxLength: 60, nullable: false),
+                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Number = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SellerId = table.Column<Guid>(type: "uniqueidentifier", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Sellers", x => x.SellerID);
+                    table.ForeignKey(
+                        name: "FK_Sellers_Sellers_SellerId",
+                        column: x => x.SellerId,
+                        principalTable: "Sellers",
+                        principalColumn: "SellerID");
                 });
 
             migrationBuilder.CreateTable(
@@ -100,21 +100,21 @@ namespace WebApplication1.Migrations
                 });
 
             migrationBuilder.InsertData(
-                table: "Consultants",
-                columns: new[] { "ConsultantID", "Address", "ConsultantId", "Name", "Number", "PhoneNumber" },
-                values: new object[,]
-                {
-                    { new Guid("3d490a70-94ce-4d45-9494-5248280c2ce3"), "Saransk, Nevskogo 113", null, "Genadiy", "2", "82002769076" },
-                    { new Guid("c9d4c053-49b6-430c-bc78-2d54a9991870"), "Saransk, Nevskogo 11", null, "Andrey", "1", "85882507000" }
-                });
-
-            migrationBuilder.InsertData(
                 table: "Customers",
                 columns: new[] { "CustomerID", "Address", "Country", "CustomerId", "Name", "PhoneNumber" },
                 values: new object[,]
                 {
-                    { new Guid("4d490a70-94ce-4d15-9494-5248280c2ce3"), "Saransk, Veselovskogo20k1", "Russia", null, "Stas", "86743643904" },
-                    { new Guid("c2d4c053-49b6-410c-bc78-2d54a9991870"), "Saransk, Veselovskogo20k2", "Russia", null, "Nikita", "89530309776" }
+                    { new Guid("bdf081e9-6798-44f2-bd9a-5e148dbf1814"), "Минск", "Беларусь", null, "Аркалий", "89898898988" },
+                    { new Guid("d3f99b26-c7f7-44c8-a49c-ac2f32883d94"), "Тюмень", "Россия", null, "Иван", "89873787778" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Sellers",
+                columns: new[] { "SellerID", "Address", "Name", "Number", "PhoneNumber", "SellerId" },
+                values: new object[,]
+                {
+                    { new Guid("117d9794-e69c-4366-af14-7899cd34e349"), "Саранск, Ленина, 8 ", "Алексей", "2", "8291892189", null },
+                    { new Guid("284aa8c3-ebd0-40c3-b6d6-cb60072e7b66"), "Саранск, Ленина, 9", "Руслан", "1", "91829819289", null }
                 });
 
             migrationBuilder.InsertData(
@@ -128,11 +128,6 @@ namespace WebApplication1.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Consultants_ConsultantId",
-                table: "Consultants",
-                column: "ConsultantId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Customers_CustomerId",
                 table: "Customers",
                 column: "CustomerId");
@@ -141,19 +136,24 @@ namespace WebApplication1.Migrations
                 name: "IX_Employees_CompanyId",
                 table: "Employees",
                 column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Sellers_SellerId",
+                table: "Sellers",
+                column: "SellerId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Consultants");
-
-            migrationBuilder.DropTable(
                 name: "Customers");
 
             migrationBuilder.DropTable(
                 name: "Employees");
+
+            migrationBuilder.DropTable(
+                name: "Sellers");
 
             migrationBuilder.DropTable(
                 name: "Companies");

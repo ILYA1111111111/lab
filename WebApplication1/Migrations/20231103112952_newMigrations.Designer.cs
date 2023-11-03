@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace WebApplication1.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20231102223326_newMigrations")]
+    [Migration("20231103112952_newMigrations")]
     partial class newMigrations
     {
         /// <inheritdoc />
@@ -67,59 +67,6 @@ namespace WebApplication1.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Entities.Models.Consultant", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier")
-                        .HasColumnName("ConsultantID");
-
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.Property<Guid?>("ConsultantId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasMaxLength(60)
-                        .HasColumnType("nvarchar(60)");
-
-                    b.Property<string>("Number")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("ConsultantId");
-
-                    b.ToTable("Consultants");
-
-                    b.HasData(
-                        new
-                        {
-                            Id = new Guid("c9d4c053-49b6-430c-bc78-2d54a9991870"),
-                            Address = "Saransk, Nevskogo 11",
-                            Name = "Andrey",
-                            Number = "1",
-                            PhoneNumber = "85882507000"
-                        },
-                        new
-                        {
-                            Id = new Guid("3d490a70-94ce-4d45-9494-5248280c2ce3"),
-                            Address = "Saransk, Nevskogo 113",
-                            Name = "Genadiy",
-                            Number = "2",
-                            PhoneNumber = "82002769076"
-                        });
-                });
-
             modelBuilder.Entity("Entities.Models.Customer", b =>
                 {
                     b.Property<Guid>("Id")
@@ -157,19 +104,19 @@ namespace WebApplication1.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("c2d4c053-49b6-410c-bc78-2d54a9991870"),
-                            Address = "Saransk, Veselovskogo20k2",
-                            Country = "Russia",
-                            Name = "Nikita",
-                            PhoneNumber = "89530309776"
+                            Id = new Guid("d3f99b26-c7f7-44c8-a49c-ac2f32883d94"),
+                            Address = "Тюмень",
+                            Country = "Россия",
+                            Name = "Иван",
+                            PhoneNumber = "89873787778"
                         },
                         new
                         {
-                            Id = new Guid("4d490a70-94ce-4d15-9494-5248280c2ce3"),
-                            Address = "Saransk, Veselovskogo20k1",
-                            Country = "Russia",
-                            Name = "Stas",
-                            PhoneNumber = "86743643904"
+                            Id = new Guid("bdf081e9-6798-44f2-bd9a-5e148dbf1814"),
+                            Address = "Минск",
+                            Country = "Беларусь",
+                            Name = "Аркалий",
+                            PhoneNumber = "89898898988"
                         });
                 });
 
@@ -229,11 +176,57 @@ namespace WebApplication1.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Entities.Models.Consultant", b =>
+            modelBuilder.Entity("Entities.Models.Seller", b =>
                 {
-                    b.HasOne("Entities.Models.Consultant", null)
-                        .WithMany("Consultants")
-                        .HasForeignKey("ConsultantId");
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier")
+                        .HasColumnName("SellerID");
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(60)
+                        .HasColumnType("nvarchar(60)");
+
+                    b.Property<string>("Number")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<Guid?>("SellerId")
+                        .HasColumnType("uniqueidentifier");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SellerId");
+
+                    b.ToTable("Sellers");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = new Guid("284aa8c3-ebd0-40c3-b6d6-cb60072e7b66"),
+                            Address = "Саранск, Ленина, 9",
+                            Name = "Руслан",
+                            Number = "1",
+                            PhoneNumber = "91829819289"
+                        },
+                        new
+                        {
+                            Id = new Guid("117d9794-e69c-4366-af14-7899cd34e349"),
+                            Address = "Саранск, Ленина, 8 ",
+                            Name = "Алексей",
+                            Number = "2",
+                            PhoneNumber = "8291892189"
+                        });
                 });
 
             modelBuilder.Entity("Entities.Models.Customer", b =>
@@ -254,19 +247,26 @@ namespace WebApplication1.Migrations
                     b.Navigation("Company");
                 });
 
+            modelBuilder.Entity("Entities.Models.Seller", b =>
+                {
+                    b.HasOne("Entities.Models.Seller", null)
+                        .WithMany("Sellers")
+                        .HasForeignKey("SellerId");
+                });
+
             modelBuilder.Entity("Entities.Models.Company", b =>
                 {
                     b.Navigation("Employees");
                 });
 
-            modelBuilder.Entity("Entities.Models.Consultant", b =>
-                {
-                    b.Navigation("Consultants");
-                });
-
             modelBuilder.Entity("Entities.Models.Customer", b =>
                 {
                     b.Navigation("Customers");
+                });
+
+            modelBuilder.Entity("Entities.Models.Seller", b =>
+                {
+                    b.Navigation("Sellers");
                 });
 #pragma warning restore 612, 618
         }
