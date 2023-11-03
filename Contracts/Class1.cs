@@ -7,6 +7,7 @@ using static Contracts.Contracts;
 
 namespace Contracts
 {
+    
     public class Contracts
     {
 
@@ -38,6 +39,9 @@ namespace Contracts
     {
         IEnumerable<Company> GetAllCompanies(bool trackChanges);
         Company GetCompany(Guid companyId, bool trackChanges);
+        void CreateCompany(Company company);
+        IEnumerable<Company> GetByIds(IEnumerable<Guid> ids, bool trackChanges);
+        void DeleteCompany(Company company);
     }
 }
 namespace Contracts
@@ -46,6 +50,7 @@ namespace Contracts
     {
         object GetEmployee(Guid companyId, Guid id, bool trackChanges);
         IEnumerable<Employee> GetEmployees(Guid companyId, bool trackChanges);
-
+        void CreateEmployeeForCompany(Guid companyId, Employee employee);
+        void DeleteEmployee(Employee employee);
     }
 }
